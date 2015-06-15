@@ -1,0 +1,7 @@
+---
+# 2015-06-15 (cc) <paul4hough@gmail.com>
+#
+- hosts: localhost
+  remote_user: root
+  tasks:
+    - command: exit 1
