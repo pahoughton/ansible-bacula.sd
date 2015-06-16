@@ -1,0 +1,16 @@
+---
+# 2015-06-16 (cc) <paul4hough@gmail.com>
+#
+# see bacula storage documentation and ../templates/bacula-sd.conf.jinja2
+#
+# bacula_sd_name: storage name
+# bacula_sd_address: ip or hostname
+# bacula_sd_port: tcp port
+# bacula_dir_name: director name
+# bacula_sd_archive_device: backup storage directory
+
+bacula_sd_name: bacula
+bacula_sd_address: bacula
+bacula_sd_port: 9103
+bacula_dir_name: bacula
+bacula_sd_archive_device: /srv/bacula/storage

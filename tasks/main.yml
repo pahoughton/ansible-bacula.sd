@@ -1,0 +1,8 @@
+---
+# 2015-06-16 (cc) <paul4hough@gmail.com>
+#
+
+- yum: name=bacula-storage
+- service: name=bacula-sd state=stopped
+- template: src=bacula-sd.conf.jinja2 dest=/etc/bacula/bacula-sd.conf backup=yes
+- service: name=bacula-sd state=started

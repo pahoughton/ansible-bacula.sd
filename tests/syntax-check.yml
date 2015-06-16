@@ -2,6 +2,5 @@
 # 2015-06-15 (cc) <paul4hough@gmail.com>
 #
 - hosts: unittest
-  remote_user: jenkins
   roles:
     - pahoughton.bacula.sd
