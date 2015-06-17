@@ -11,9 +11,10 @@ else
 fi
 
 echo -n running service bacual-sd:
-if service bacual-sd status ; then
+if service bacula-sd status ; then
   echo pass
 else
   echo FAIL
   status=1
 fi
+exit $status

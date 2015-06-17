@@ -11,6 +11,10 @@ baseimg="/var/lib/libvirt/images/r7test-base.qcow2"
 imgfn="`pwd`/r7test.qcow2"
 ssh_opts="-i r7t_jenkins.id -o StrictHostKeyChecking=no"
 
+function Dbg {
+  [ -n "$DEBUG" ] && echo $@
+}
+
 function Die {
   echo Error - $? - $@
   virsh shutdown $testname
@@ -26,9 +30,15 @@ DoD cp "$baseimg" "$imgfn"
 DoD chmod +w "$imgfn"
 sed -e "s~%imgfn%~$imgfn~g" -e "s~%name%~$testname~g" r7test.xml.tmpl > r7test.xml
 DoD virsh create r7test.xml
-sleep 10
-vgip=`awk -e '/r7jenkins/ {print $3}' /var/lib/libvirt/dnsmasq/default.leases`
-echo $vgip
+
+while true; do
+  sleep 10
+  vgip=`awk -e '/r7jenkins/ {print $3}' /var/lib/libvirt/dnsmasq/default.leases`
+  if [ -n "$vgip" ] ; then break; fi
+  let tcnt=tcnt+1
+  if [ $tcnt -gt 5 ] ; then exit 1; fi
+done
+Dbg $vgip
 echo $testname > hostname
 DoD scp $ssh_opts hostname root@$vgip:/etc/hostname
 ssh $ssh_opts root@$vgip shutdown -r now
@@ -42,7 +52,9 @@ cat <<EOF  > unittest.inv
 $vgip          ansible_ssh_private_key_file=`pwd`/r7t_jenkins.id
 EOF
 
-DoD ansible-playbook -i unittest.inv unittest.yml
+aparg=
+if [ -n "$DEBUG" ] ; then aparg='-v' ; fi
+DoD ansible-playbook $aparg -i unittest.inv unittest.yml
 
 # guest specific tests
 DoD ssh $ssh_opts root@$vgip bash unittest.guest.bash
