@@ -9,8 +9,9 @@
 # bacula_dir_name: director name
 # bacula_sd_archive_device: backup storage directory
 
-bacula_sd_name: bacula
-bacula_sd_address: bacula
+bacula_sd_name: bacstg
+bacula_sd_password: b@culaStorage
+bacula_sd_address: bacula-sd
 bacula_sd_port: 9103
-bacula_dir_name: bacula
+bacula_dir_name: bacula-dir
 bacula_sd_archive_device: /srv/bacula/storage

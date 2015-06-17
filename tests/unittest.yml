@@ -1,7 +1,9 @@
 ---
 # 2015-06-15 (cc) <paul4hough@gmail.com>
-#
+# ansible playbook
 - hosts: unittest
-  remote_user: jenkins
+  remote_user: root
   roles:
     - pahoughton.bacula.sd
+  tasks:
+    - copy: src=unittest.guest.bash dest=/root/unittest.guest.bash

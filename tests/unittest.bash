@@ -45,7 +45,7 @@ EOF
 DoD ansible-playbook -i unittest.inv unittest.yml
 
 # guest specific tests
-DoD ssh $ssh_opts root@$vgip bash guest.systest.bash
+DoD ssh $ssh_opts root@$vgip bash unittest.guest.bash
 
 # cleanup
 DoD virsh shutdown $testname
