@@ -45,7 +45,7 @@ Dbg $vgip
 echo $testname > hostname
 DoD scp $ssh_opts hostname root@$vgip:/etc/hostname
 ssh $ssh_opts root@$vgip shutdown -r now
-sleep 10
+sleep 40
 # make sure our new host name has come up.
 DoD grep $testname /var/lib/libvirt/dnsmasq/default.leases > /dev/null
 
