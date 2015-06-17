@@ -18,6 +18,7 @@ function Dbg {
 function Die {
   echo Error - $? - $@
   virsh shutdown $testname
+  chmod 644 r7t_jenkins.id
   exit 1
 }
 #DoOrDie
@@ -28,6 +29,8 @@ function DoD {
 echo $imgfn
 DoD cp "$baseimg" "$imgfn"
 DoD chmod +w "$imgfn"
+DoD chmod 600 r7t_jenkins.id
+
 sed -e "s~%imgfn%~$imgfn~g" -e "s~%name%~$testname~g" r7test.xml.tmpl > r7test.xml
 DoD virsh create r7test.xml
 
@@ -61,5 +64,6 @@ DoD ssh $ssh_opts root@$vgip bash unittest.guest.bash
 
 # cleanup
 DoD virsh shutdown $testname
+chmod 644 r7t_jenkins.id
 echo $targs complete.
 exit 0
