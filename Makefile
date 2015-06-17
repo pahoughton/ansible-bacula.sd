@@ -5,5 +5,5 @@ default:
 	$(hide)echo 'targets: unittest'
 
 
-unittest:
+realclean clean unittest:
 	$(hide)$(MAKE) -C tests $@ hide=$(hide)
